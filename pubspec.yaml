@@ -20,6 +20,8 @@ dependencies:
   gap: ^3.0.1
   multiple_result: ^5.1.0
   responsive_framework: ^1.1.1
+  talker: ^3.2.0
+  talker_dio_logger: ^2.4.0
   velocity_x: ^4.1.2
 
 dev_dependencies:

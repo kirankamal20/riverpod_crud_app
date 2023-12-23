@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gap/gap.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
+import 'package:riverpod_crud_app/features/login/controller/login_notifier_pod.dart';
+import 'package:riverpod_crud_app/features/login/view/widget/login_button.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage()
@@ -18,7 +20,14 @@ class LoginPage extends ConsumerStatefulWidget {
 class _LoginPageState extends ConsumerState<LoginPage> {
   final formkey = GlobalKey<FormBuilderState>();
   void login() {
-    if (formkey.currentState!.validate()) {}
+    if (formkey.currentState!.validate()) {
+      final username = formkey.currentState!.fields["email"]!.value as String;
+      final passsword =
+          formkey.currentState!.fields["password"]!.value as String;
+      ref
+          .read(loginAsyncNotifierPod.notifier)
+          .login(email: username, password: passsword);
+    }
   }
 
   @override
@@ -44,6 +53,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       maxHeight: isDeskTop ? 400 : 526),
                 )
                 .make(),
+            VxBox().height(500).make()
           ].vStack(),
           FormBuilder(
             key: formkey,
@@ -78,27 +88,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   ],
                 ),
               ).pOnly(top: 17, right: 10, left: 10),
-              ElevatedButton(
-                onPressed: () {
-                  login();
-                },
-                child:
-                    //  isLoading
-                    //     ?
-                    //
-                    //const SizedBox(
-                    //         height: 20,
-                    //         width: 20,
-                    //         child: CircularProgressIndicator(
-                    //           color: Colors.white,
-                    //         ),
-                    //       )
-                    //     :
-                    "Login".text.white.bold.size(25).make(),
-              )
-                  .h(50)
-                  .w(context.screenWidth)
-                  .pOnly(top: 20, right: 10, left: 10),
+              LoginButton(
+                login: login,
+              ),
               const Gap(10),
               Wrap(
                 alignment: WrapAlignment.center,
@@ -133,7 +125,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 ),
           )
         ],
-      ),
+      ).scrollVertical(),
     );
   }
 }

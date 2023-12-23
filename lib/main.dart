@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:riverpod_crud_app/router/auto_router_provider.dart';
+import 'package:talker/talker.dart';
 
+final talker = Talker();
 void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
