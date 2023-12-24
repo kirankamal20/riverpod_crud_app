@@ -5,7 +5,10 @@ import 'package:riverpod_crud_app/router/router.gr.dart';
 class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: LoginRoute.page, path: "/", initial: true),
-        AutoRoute(page: HomeRoute.page, path: "/HomeRoute")
+        AutoRoute(
+          page: LoginRoute.page,
+          path: "/LoginRoute",
+        ),
+        AutoRoute(page: HomeRoute.page, path: "/ ", initial: true)
       ];
 }

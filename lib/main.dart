@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:riverpod_crud_app/core/theme/app_theme.dart';
+import 'package:riverpod_crud_app/core/theme/theme_controller.dart';
 import 'package:riverpod_crud_app/router/auto_router_provider.dart';
 import 'package:talker/talker.dart';
 
 final talker = Talker();
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -21,8 +26,12 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     final router = ref.watch(autorouterprovider);
+    final themeMode = ref.watch(themecontrollerProvider);
     return MaterialApp.router(
       routerConfig: router.config(),
+      theme: Themes.lighttheme,
+      darkTheme: Themes.darkTheme,
+      themeMode: themeMode,
       builder: (context, child) {
         return ResponsiveBreakpoints.builder(
           child: Builder(

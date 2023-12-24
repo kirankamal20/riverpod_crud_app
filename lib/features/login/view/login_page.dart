@@ -34,7 +34,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Widget build(BuildContext context) {
     var isDeskTop = ResponsiveBreakpoints.of(context).isDesktop;
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
+      // backgroundColor: Colors.grey.shade300,
       body: Stack(
         children: [
           [
@@ -46,7 +46,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 .make()
                 .centered()
                 .box
-                .color(const Color.fromARGB(255, 3, 3, 77))
+                .color(context.primaryColor)
                 .withConstraints(
                   BoxConstraints(
                       maxWidth: double.infinity,
@@ -101,7 +101,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     onPressed: () {},
                     child: "Register"
                         .text
-                        .color(const Color.fromARGB(255, 3, 3, 77))
+                        // .color(const Color.fromARGB(255, 3, 3, 77))
                         .bold
                         .size(14)
                         .make(),

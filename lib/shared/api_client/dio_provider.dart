@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_crud_app/main.dart';
+import 'package:riverpod_crud_app/shared/api_client/dio_default_interceptor.dart';
 import 'package:riverpod_crud_app/shared/api_client/dio_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
@@ -23,7 +24,8 @@ final dioProvider = Provider.autoDispose<Dio>((ref) {
         printResponseMessage: true,
       ),
     ),
-    CustomInterceptors()
+    // DefaultInterceptor(),
+    // CustomInterceptors()
   ]);
   return dio;
 });
