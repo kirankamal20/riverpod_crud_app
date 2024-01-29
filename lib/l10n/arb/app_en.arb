@@ -1,0 +1,10 @@
+{
+  "@@locale": "en",
+  "name": "Name",
+  "age": "Age",
+  "dob": "Date of Birth",
+  "gender": "Gender",
+  "country": "Country"
+}
+
+

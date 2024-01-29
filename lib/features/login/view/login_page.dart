@@ -57,6 +57,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           ].vStack(),
           FormBuilder(
             key: formkey,
+            initialValue: const {"email": "kiran21", 'password': "Kiran@123"},
             child: [
               FormBuilderTextField(
                 name: "email",

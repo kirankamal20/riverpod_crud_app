@@ -9,14 +9,15 @@ class ThemeModeButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themecontrollerProvider);
-    return IconButton(
-      onPressed: () {
-        ref.read(themecontrollerProvider.notifier).changeTheme(
-            themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark);
-      },
-      icon: Icon(
-          themeMode == ThemeMode.dark ? Icons.dark_mode : Icons.light_mode),
-      color: themeMode == ThemeMode.dark ? Colors.white : Colors.black,
-    );
+    return  
+    
+     IconButton(
+        onPressed: () {
+          ref.read(themecontrollerProvider.notifier).changeTheme(
+              themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark);
+        },
+        icon: Icon(
+            themeMode == ThemeMode.dark ? Icons.dark_mode : Icons.light_mode),
+        color: themeMode == ThemeMode.light ? Colors.black : Colors.white);
   }
 }

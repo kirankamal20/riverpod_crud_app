@@ -8,6 +8,6 @@ final getllStudentsPod =
   return result.when((success) {
     return success;
   }, (error) {
-    throw error.toString();
+    throw error.message;
   });
 });

@@ -1,70 +1,114 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:responsive_framework/responsive_framework.dart';
-import 'package:riverpod_crud_app/core/theme/app_theme.dart';
-import 'package:riverpod_crud_app/core/theme/theme_controller.dart';
-import 'package:riverpod_crud_app/router/auto_router_provider.dart';
+import 'package:hydrated_state_notifier/hydrated_state_notifier.dart';
+import 'package:riverpod_crud_app/app/my_app.dart';
+import 'package:riverpod_crud_app/data/service/db_service/db_service_pod.dart';
 import 'package:talker/talker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:hydrated_state_notifier_hive/hydrated_state_notifier_hive.dart';
+import 'package:path/path.dart' as path;
 
 final talker = Talker();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  runApp(const ProviderScope(child: MyApp()));
+  var temporaryDirectory = await getTemporaryDirectory();
+  HydratedStorage.storage = await HiveHydratedStorage.build(
+    storageDirectoryPath: kIsWeb ? '' : temporaryDirectory.path,
+  );
+  final collection = await Hive.openBox("user");
+  runApp(
+    ProviderScope(
+      overrides: [userBox.overrideWithValue(collection)],
+      child: const MyApp(),
+    ),
+  );
 }
 
-class MyApp extends ConsumerStatefulWidget {
-  const MyApp({super.key});
+/// Flutter code sample for [Draggable].
+
+// void main() => runApp(const DraggableExampleApp());
+
+// class DraggableExampleApp extends StatelessWidget {
+//   const DraggableExampleApp({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(title: const Text('Draggable Sample')),
+//         body: const DraggableExample(),
+//       ),
+//     );
+//   }
+// }
+
+class DraggableExample extends StatefulWidget {
+  const DraggableExample({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _MyAppState();
+  State<DraggableExample> createState() => _DraggableExampleState();
 }
 
-class _MyAppState extends ConsumerState<MyApp> {
+class _DraggableExampleState extends State<DraggableExample> {
+  int acceptedData = 0;
+
   @override
   Widget build(BuildContext context) {
-    final router = ref.watch(autorouterprovider);
-    final themeMode = ref.watch(themecontrollerProvider);
-    return MaterialApp.router(
-      routerConfig: router.config(),
-      theme: Themes.lighttheme,
-      darkTheme: Themes.darkTheme,
-      themeMode: themeMode,
-      builder: (context, child) {
-        return ResponsiveBreakpoints.builder(
-          child: Builder(
-            builder: (context) {
-              return ResponsiveScaledBox(
-                width: ResponsiveValue<double>(
-                  context,
-                  conditionalValues: [
-                    Condition.equals(name: MOBILE, value: 450),
-                    // Condition.between(start: 800, end: 1100, value: 800),
-                    // Condition.between(start: 1000, end: 1200, value: 700),
-                  ],
-                ).value,
-                child: AnnotatedRegion<SystemUiOverlayStyle>(
-                  value: const SystemUiOverlayStyle(
-                    statusBarColor: Colors.transparent,
-                  ),
-                  child: GestureDetector(
-                    child: child,
-                    onTap: () {},
-                  ),
-                ),
-              );
-            },
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Draggable<int>(
+          data: 10,
+          feedback: Container(
+            color: Colors.deepOrange,
+            height: 100,
+            width: 100,
+            child: const Icon(Icons.directions_run),
           ),
-          breakpoints: [
-            const Breakpoint(start: 0, end: 450, name: MOBILE),
-            const Breakpoint(start: 451, end: 800, name: TABLET),
-            const Breakpoint(start: 801, end: 1920, name: DESKTOP),
-            const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
-          ],
-        );
-      },
+          childWhenDragging: Container(
+            height: 100.0,
+            width: 100.0,
+            color: Colors.pinkAccent,
+            child: const Center(
+              child: Text('Child When Dragging'),
+            ),
+          ),
+          child: Container(
+            height: 100.0,
+            width: 100.0,
+            color: Colors.lightGreenAccent,
+            child: const Center(
+              child: Text('Draggable'),
+            ),
+          ),
+        ),
+        DragTarget<int>(
+          builder: (
+            BuildContext context,
+            List<dynamic> accepted,
+            List<dynamic> rejected,
+          ) {
+            return Container(
+              height: 100.0,
+              width: 100.0,
+              color: Colors.cyan,
+              child: Center(
+                child: Text('Value is updated to: $acceptedData'),
+              ),
+            );
+          },
+          onAccept: (int data) {
+            setState(() {
+              acceptedData += data;
+            });
+          },
+        ),
+      ],
     );
   }
 }

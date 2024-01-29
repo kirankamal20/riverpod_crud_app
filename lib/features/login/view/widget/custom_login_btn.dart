@@ -12,7 +12,7 @@ class CustomLoginElevatedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: login,
-      child: child ?? label.text.white.bold.size(25).make(),
+      child: child ?? label.text.bold.size(25).make(),
     ).h(50).w(context.screenWidth).pOnly(top: 20, right: 10, left: 10);
   }
 }

@@ -1,10 +1,7 @@
 import 'dart:math';
 
-import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_crud_app/core/theme/theme_controller.dart';
-import 'package:riverpod_crud_app/features/home/view/widgets/theme_mode_button.dart';
+import 'package:riverpod_crud_app/core/theme/app_theme.dart';
 
 class DarkTransition extends StatefulWidget {
   const DarkTransition(
@@ -69,9 +66,9 @@ class _DarkTransitionState extends State<DarkTransition>
 
   ThemeData getTheme(bool dark) {
     if (dark) {
-      return ThemeData.dark();
+      return Themes.darkTheme;
     } else {
-      return ThemeData.light();
+      return Themes.lighttheme;
     }
   }
 
