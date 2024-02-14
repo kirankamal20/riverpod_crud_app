@@ -28,6 +28,11 @@ class AppRouter extends $AppRouter {
           page: AddStudentRoute.page,
           path: "/AddStudentRoute ",
           // guards: [AuthGuard(iDbServiceService: iDbServiceService)],
+        ),
+        AutoRoute(
+          page: SearchRoute.page,
+          path: "/SearchRoute ",
+          // guards: [AuthGuard(iDbServiceService: iDbServiceService)],
         )
       ];
 }

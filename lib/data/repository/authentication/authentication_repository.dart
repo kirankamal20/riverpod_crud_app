@@ -32,8 +32,8 @@ class AuthenticationRepository implements IAuthenticationRepository {
   Future<Result<List<Getallstudents>, AuthException>> getAllStudents() async {
     final response = await iAuthenticationProvider.getAllStudents();
     if (response.statusCode == 200) {
-      var b = response.data as List;
-      var result = b.map((e) => Getallstudents.fromMap(e)).toList();
+      var data = response.data as List;
+      var result = data.map((e) => Getallstudents.fromMap(e)).toList();
 
       return Success(result);
     } else {
@@ -101,6 +101,20 @@ class AuthenticationRepository implements IAuthenticationRepository {
 
     if (response.statusCode == 200) {
       return Success(response.data['message']);
+    } else {
+      return Error(AuthException(message: response.data['detail']));
+    }
+  }
+
+  @override
+  Future<Result<List<Getallstudents>, AuthException>> searchStudent(
+      {required String searchQuery}) async {
+    final response =
+        await iAuthenticationProvider.searchStudent(searchQuery: searchQuery);
+    if (response.statusCode == 200) {
+      var data = response.data as List;
+      var result = data.map((e) => Getallstudents.fromMap(e)).toList();
+      return Success(result);
     } else {
       return Error(AuthException(message: response.data['detail']));
     }

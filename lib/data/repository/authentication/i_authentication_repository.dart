@@ -14,14 +14,15 @@ abstract class IAuthenticationRepository {
       required String gender,
       required String country,
       required Function(int, int) onSendProgress});
-  Future<Result<String, AuthException>> updateStudent({
-    required String filePath,
-    required int studentId,
-    required String studentName,
-    required String studentAge,
-    required String dateOfBirth,
-    required String gender,
-    required String country, required Function(int, int) onSendProgress
-  });
+  Future<Result<String, AuthException>> updateStudent(
+      {required String filePath,
+      required int studentId,
+      required String studentName,
+      required String studentAge,
+      required String dateOfBirth,
+      required String gender,
+      required String country,
+      required Function(int, int) onSendProgress});
   Future<Result<String, AuthException>> deleteStudent({required int studentId});
+  Future<Result<List<Getallstudents>, AuthException>> searchStudent({required String searchQuery});
 }

@@ -6,4 +6,6 @@ class ApiUrls {
   static const addStudent = "addstudent";
   static const deleteStudent = "delete?student_id=";
   static const updateStudent = "update";
+  static const searchStudent = "search?search_query=";
 }
+ 

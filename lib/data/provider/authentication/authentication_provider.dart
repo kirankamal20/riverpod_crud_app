@@ -119,4 +119,17 @@ class AuthenticationProvider implements IAuthenticationProvider {
         data: data,
         onSendProgress: onSendProgress);
   }
+
+  @override
+  Future<Response> searchStudent({required String searchQuery}) async {
+    final result = await iDbServiceService.getToken();
+    final token = result.tryGetSuccess();
+    
+    return await dio.post("${ApiUrls.searchStudent}$searchQuery",
+        options: Options(headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token'
+        }));
+  }
 }

@@ -21,4 +21,5 @@ abstract class IAuthenticationProvider {
     required String country, required  Function(int, int) onSendProgress
   });
   Future<Response> deleteStudent({required int studentId});
+  Future<Response> searchStudent({required String searchQuery} );
 }
