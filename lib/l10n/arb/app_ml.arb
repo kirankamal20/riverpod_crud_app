@@ -1,7 +1,20 @@
 {
-  "@@locale": "ml", "name": "പേര്",
+  "@@locale": "ml",
+  "name": "പേര്",
   "age": "പ്രായം",
   "dob": "ജനനത്തീയതി",
   "gender": "ലിംഗം",
-  "country": "രാജ്യം"
+  "country": "രാജ്യം",
+  "pick_photo": "ഫോട്ടോ തെരഞ്ഞെടുക്കുക",
+  "select_country": "രാജ്യം തിരഞ്ഞെടുക്കുക",
+  "uploading": "അപ്‌ലോഡുചെയ്യുന്നു",
+  "success": "വിജയമായിരുന്നു",
+  "error": "പിശക്",
+  "add_student": "വിദ്യാർത്ഥി ചേർക്കുക",
+  "update_student": "വിദ്യാർത്ഥി അപ്ഡേറ്റ് ചെയ്യുക",
+  "name_validation_errormessage": "ദയവായി നിങ്ങളുടെ പേര് നൽകുക",
+  "age_validation_errormessage": "ദയവായി നിങ്ങളുടെ പ്രായം നൽകുക",
+  "dob_validation_errormessage": "ദയവായി നിങ്ങളുടെ ജനനത്തീയതി നൽകുക",
+  "gender_validation_errormessage": "ദയവായി നിങ്ങളുടെ ലിംഗം നൽകുക",
+  "picture_validation_errormessage": "ദയവായി നിങ്ങളുടെ ഫോട്ടോ നൽകുക"
 }

@@ -4,7 +4,18 @@
   "age": "Age",
   "dob": "Date of Birth",
   "gender": "Gender",
-  "country": "Country"
+  "country": "Country",
+  "pick_photo": "Pick Photo",
+  "select_country": "Select Country",
+  "uploading": "Uploading",
+  "success": "Success",
+  "error": "Error",
+  "add_student": "Add Student",
+  "update_student": "Update Student",
+  "name_validation_errormessage": "Please enter your name",
+  "age_validation_errormessage": "Please enter your age",
+  "dob_validation_errormessage": "Please enter your dob",
+  "gender_validation_errormessage": "Please enter your gender",
+   "picture_validation_errormessage": "Please enter your picture"
 }
-
 
