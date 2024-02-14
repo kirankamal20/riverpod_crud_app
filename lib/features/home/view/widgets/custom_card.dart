@@ -105,13 +105,6 @@ class CustomCard extends StatelessWidget {
     )
         .box
         .color(context.isDarkMode ? Colors.black : Colors.white)
-        // .withGradient(
-        //   LinearGradient(
-        //     begin: Alignment.bottomCenter,
-        //     end: Alignment.centerLeft,
-        //     colors: colorList,
-        //   ),
-        // )
         .withShadow([
           BoxShadow(
             color:

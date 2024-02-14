@@ -81,7 +81,9 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
     final l10n = context.l10n;
     return Scaffold(
       appBar: AppBar(
-        title: widget.updateStudent.screenName.text.make(),
+        title: widget.updateStudent.screenName == "Add Student"
+            ? l10n.add_student.text.make()
+            : l10n.update_student.text.make(),
       ),
       body: FormBuilder(
         key: formkey,
@@ -104,7 +106,10 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
               contentPadding: const EdgeInsets.all(18),
             ),
             validator: FormBuilderValidators.compose(
-              [FormBuilderValidators.required()],
+              [
+                FormBuilderValidators.required(
+                    errorText: l10n.name_validation_errormessage)
+              ],
             ),
           ).pOnly(bottom: 15),
           FormBuilderTextField(
@@ -117,13 +122,19 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
               contentPadding: const EdgeInsets.all(18),
             ),
             validator: FormBuilderValidators.compose(
-              [FormBuilderValidators.required()],
+              [
+                FormBuilderValidators.required(
+                    errorText: l10n.age_validation_errormessage)
+              ],
             ),
           ).pOnly(bottom: 15),
           FormBuilderField<DateTime>(
             name: 'dob',
             validator: FormBuilderValidators.compose(
-              [FormBuilderValidators.required()],
+              [
+                FormBuilderValidators.required(
+                    errorText: l10n.dob_validation_errormessage)
+              ],
             ),
             onChanged: (val) => debugPrint(val.toString()),
             builder: (FormFieldState<DateTime> field) {
@@ -185,12 +196,15 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
                     ))
                 .toList(),
             validator: FormBuilderValidators.compose(
-              [FormBuilderValidators.required()],
+              [
+                FormBuilderValidators.required(
+                    errorText: l10n.gender_validation_errormessage)
+              ],
             ),
           ).pOnly(bottom: 15),
           [
             const Gap(10),
-            "Select Country".text.make(),
+            l10n.select_country.text.make(),
             const Gap(10),
             FormBuilderField<String?>(
               name: 'countryField',
@@ -220,11 +234,14 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
           FormBuilderImagePicker(
             name: 'photo',
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            decoration: const InputDecoration(
-                labelText: 'Pick Photo', border: OutlineInputBorder()),
+            decoration: InputDecoration(
+                labelText: l10n.pick_photo, border: const OutlineInputBorder()),
             maxImages: 1,
             validator: FormBuilderValidators.compose(
-              [FormBuilderValidators.required()],
+              [
+                FormBuilderValidators.required(
+                    errorText: l10n.picture_validation_errormessage)
+              ],
             ),
           ),
         ].vStack(crossAlignment: CrossAxisAlignment.start).p(20),
@@ -240,24 +257,27 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
                         onPressed: () {
                           onSubmit();
                         },
-                        child:
-                            widget.updateStudent.screenName.text.white.make()),
+                        child: widget.updateStudent.screenName == "Add Student"
+                            ? l10n.add_student.text.white.make()
+                            : l10n.update_student.text.white.make()),
                     LoadingAddStudentState() => ElevatedButton(
                         onPressed: () {
                           onSubmit();
                         },
-                        child:
-                            "Uploading ${data.percentage} %".text.white.make()),
+                        child: "${l10n.uploading} ${data.percentage} %"
+                            .text
+                            .white
+                            .make()),
                     AddStudentStateSuccessState() => ElevatedButton(
                         onPressed: () {
                           onSubmit();
                         },
-                        child: "Success".text.white.make()),
+                        child: l10n.success.text.white.make()),
                     AddStudentStateErrorState() => ElevatedButton(
                         onPressed: () {
                           onSubmit();
                         },
-                        child: "Error".text.white.make()),
+                        child: l10n.error.text.white.make()),
                   },
               error: (Object error, StackTrace stackTrace) =>
                   error.toString().text.make(),

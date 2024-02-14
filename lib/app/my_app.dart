@@ -28,8 +28,17 @@ class _MyAppState extends ConsumerState<MyApp> {
       theme: Themes.lighttheme,
       darkTheme: Themes.darkTheme,
       themeMode: themeMode,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      // localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        CountryLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate, // Here !
+        DefaultWidgetsLocalizations.delegate,
+      ],
       locale: locale,
       builder: (context, child) {
         return ResponsiveBreakpoints.builder(

@@ -47,6 +47,12 @@ class _HomePageState extends ConsumerState<HomePage> {
           appBar: AppBar(
             title: const Text("Home"),
             actions: [
+              IconButton(onPressed: () {}, icon: const Icon(Icons.logout)),
+              IconButton(
+                  onPressed: () {
+                    ref.read(autorouterprovider).navigate(const SearchRoute());
+                  },
+                  icon: const Icon(Icons.search)),
               Consumer(
                 builder: (context, ref, child) {
                   return PopupMenuButton<int>(

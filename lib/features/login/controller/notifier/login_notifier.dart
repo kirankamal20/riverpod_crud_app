@@ -27,7 +27,7 @@ class LoginNotifier extends AutoDisposeAsyncNotifier<LoginState> {
         await ref.watch(dbServicePod).setToken(token: success);
         state = AsyncData(LoginSuccessState());
 
-        ref.read(autorouterprovider).navigate(const HomeRoute());
+        ref.read(autorouterprovider).replace(const HomeRoute());
       }, (error) {
         state = AsyncData(LoginErrorState(error.toString()));
       });

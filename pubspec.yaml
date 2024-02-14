@@ -17,6 +17,7 @@ dependencies:
   dio: ^5.4.0
   dio_smart_retry: ^6.0.0
   duration: ^3.0.13
+  easy_debounce: ^2.0.3
   flex_color_scheme: ^7.3.1
   flutter:
     sdk: flutter
