@@ -34,7 +34,7 @@ class AuthenticationProvider implements IAuthenticationProvider {
     final token = result.tryGetSuccess();
     var headers = {
       'Accept': 'application/json',
-      'Authorization': 'Bearer  $token'
+      'Authorization': 'Bearer $token'
     };
 
     return await dio.delete(
@@ -124,12 +124,21 @@ class AuthenticationProvider implements IAuthenticationProvider {
   Future<Response> searchStudent({required String searchQuery}) async {
     final result = await iDbServiceService.getToken();
     final token = result.tryGetSuccess();
-    
+
     return await dio.post("${ApiUrls.searchStudent}$searchQuery",
         options: Options(headers: {
           'Content-Type': 'multipart/form-data',
           'Accept': 'application/json',
           'Authorization': 'Bearer $token'
         }));
+  }
+
+  @override
+  Future<Response> register(
+      {required String email, required String password}) async {
+    return await dio.post(
+      ApiUrls.register,
+      data: {"email": email, "password": password},
+    );
   }
 }

@@ -1,0 +1,18 @@
+# exclude:
+#   - "**/add*.png"
+#   - "**_**"
+
+include:
+  - "**/a*.png"
+  - "**/b*"
+  - "**/c*"
+
+watch: true
+# watch: true
+
+preview: true
+
+# output: lib/const/r.dart
+output: lib/core/const/resource.dart
+
+# name: RRR

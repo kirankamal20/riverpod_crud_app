@@ -16,6 +16,7 @@ class LoginNotifier extends AutoDisposeAsyncNotifier<LoginState> {
   Future<void> login({
     required String email,
     required String password,
+    required Function(String errorMessage) onError,
   }) async {
     state = AsyncData(LoginLoadingState());
     try {
@@ -29,9 +30,11 @@ class LoginNotifier extends AutoDisposeAsyncNotifier<LoginState> {
 
         ref.read(autorouterprovider).replace(const HomeRoute());
       }, (error) {
+        onError(error.toString());
         state = AsyncData(LoginErrorState(error.toString()));
       });
     } catch (e) {
+      onError(e.toString());
       state = AsyncData(LoginErrorState(e.toString()));
     }
   }

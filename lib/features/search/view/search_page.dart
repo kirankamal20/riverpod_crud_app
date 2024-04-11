@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_crud_app/features/home/view/widgets/custom_card.dart';
 import 'package:riverpod_crud_app/features/search/controller/notifier/search_notifier.dart';
 import 'package:riverpod_crud_app/features/search/view/widgets/search_result_card.dart';
+import 'package:riverpod_crud_app/router/auto_router_provider.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage()
@@ -24,13 +25,19 @@ class _SearchPageState extends State<SearchPage> {
         toolbarHeight: 100,
         title: Row(
           children: [
-            IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-                size: 30,
-              ),
-              onPressed: () {},
+            Consumer(
+              builder: (context, ref, child) {
+                return IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    ref.read(autorouterprovider).pop();
+                  },
+                );
+              },
             ),
             Expanded(
               child: Padding(

@@ -5,6 +5,8 @@ import 'package:riverpod_crud_app/data/repository/authentication/authentication_
 abstract class IAuthenticationRepository {
   Future<Result<String, Exception>> login(
       {required String email, required String password});
+  Future<Result<String, Exception>> register(
+      {required String email, required String password});
   Future<Result<List<Getallstudents>, AuthException>> getAllStudents();
   Future<Result<String, AuthException>> addStudnet(
       {required String filePath,
@@ -24,5 +26,6 @@ abstract class IAuthenticationRepository {
       required String country,
       required Function(int, int) onSendProgress});
   Future<Result<String, AuthException>> deleteStudent({required int studentId});
-  Future<Result<List<Getallstudents>, AuthException>> searchStudent({required String searchQuery});
+  Future<Result<List<Getallstudents>, AuthException>> searchStudent(
+      {required String searchQuery});
 }

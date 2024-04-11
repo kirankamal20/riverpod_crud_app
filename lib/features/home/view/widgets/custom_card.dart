@@ -4,12 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:riverpod_crud_app/data/model/get_all_students_model.dart';
 import 'package:riverpod_crud_app/data/model/update_student_details_arg.dart';
+import 'package:riverpod_crud_app/features/delete_btn/view/delete_btn_view.dart';
 import 'package:riverpod_crud_app/l10n/l10n.dart';
 import 'package:riverpod_crud_app/router/auto_router_provider.dart';
 import 'package:riverpod_crud_app/router/router.gr.dart';
+import 'package:riverpod_crud_app/shared/helpers/global_helper.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class CustomCard extends StatelessWidget {
+class CustomCard extends ConsumerStatefulWidget {
   const CustomCard({
     super.key,
     required this.student,
@@ -17,6 +19,11 @@ class CustomCard extends StatelessWidget {
 
   final Getallstudents student;
 
+  @override
+  ConsumerState<CustomCard> createState() => _CustomCardState();
+}
+
+class _CustomCardState extends ConsumerState<CustomCard> with GlobalHelper {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -28,7 +35,7 @@ class CustomCard extends StatelessWidget {
             height: context.screenHeight * 0.14,
             width: double.infinity,
             imageUrl:
-                "https://fastapi-student-crud.onrender.com/download-image/${student.image}",
+                "https://fastapi-student-crud.onrender.com/download-image/${widget.student.image}",
             imageBuilder: (context, imageProvider) => VxBox()
                 .bgImage(DecorationImage(
                   image: imageProvider,
@@ -46,17 +53,22 @@ class CustomCard extends StatelessWidget {
             fadeInDuration: const Duration(milliseconds: 300),
           ),
         ),
-        // Positioned(
-        //   top: 5,
-        //   right: 5,
-        //   child: IconButton(
-        //     onPressed: () {},
-        //     icon: const Icon(
-        //       Icons.delete,
-        //       color: Colors.red,
-        //     ),
-        //   ),
-        // ),
+        Positioned(
+          top: 5,
+          right: 5,
+          child: DeleteBtnView(
+            onError: (errorMessage) {
+              showSnackBar(
+                  errorMessage: errorMessage, backgroundColor: Colors.red);
+            },
+            onSuccess: (successMessage) {
+              showSnackBar(
+                  errorMessage: "Successfully Deleted",
+                  backgroundColor: Colors.blue);
+            },
+            studentId: widget.student.id,
+          ),
+        ),
         Positioned(
           top: 230,
           right: 0,
@@ -67,12 +79,12 @@ class CustomCard extends StatelessWidget {
                   ref.read(autorouterprovider).navigate(AddStudentRoute(
                         updateStudent: UpdateStudent(
                           screenName: "Update Student",
-                          name: student.student_name,
-                          age: student.student_age,
-                          dob: student.date_of_birth,
-                          gender: student.gender,
-                          country: student.country,
-                          studentId: student.id,
+                          name: widget.student.student_name,
+                          age: widget.student.student_age,
+                          dob: widget.student.date_of_birth,
+                          gender: widget.student.gender,
+                          country: widget.student.country,
+                          studentId: widget.student.id,
                         ),
                       ));
                 },
@@ -86,18 +98,18 @@ class CustomCard extends StatelessWidget {
         ),
         VStack(
           [
-            student.student_name.text.bold.xl
+            widget.student.student_name.text.bold.xl
                 .overflow(TextOverflow.ellipsis)
                 .make()
                 .w(100),
             const Gap(4),
-            '${l10n.age} : ${student.student_age}'.text.make(),
+            '${l10n.age} : ${widget.student.student_age}'.text.make(),
             const SizedBox(height: 4),
-            '${l10n.dob}: ${student.date_of_birth}'.text.make(),
+            '${l10n.dob}: ${widget.student.date_of_birth}'.text.make(),
             const SizedBox(height: 4),
-            '${l10n.gender}: ${student.gender}'.text.make(),
+            '${l10n.gender}: ${widget.student.gender}'.text.make(),
             const SizedBox(height: 4),
-            '${l10n.country}: ${student.country}'.text.make(),
+            '${l10n.country}: ${widget.student.country}'.text.make(),
           ],
           alignment: MainAxisAlignment.start,
         ).p(10).positioned(bottom: 3),

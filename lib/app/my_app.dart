@@ -8,6 +8,7 @@ import 'package:riverpod_crud_app/core/theme/app_theme.dart';
 import 'package:riverpod_crud_app/core/theme/theme_controller.dart';
 import 'package:riverpod_crud_app/l10n/l10n.dart';
 import 'package:riverpod_crud_app/router/auto_router_provider.dart';
+import 'package:riverpod_crud_app/shared/helpers/no_internet_widget.dart';
 import 'package:riverpod_crud_app/shared/pod/locale_pod.dart';
 
 class MyApp extends ConsumerStatefulWidget {
@@ -36,7 +37,7 @@ class _MyAppState extends ConsumerState<MyApp> {
         CountryLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate, // Here !
+        GlobalCupertinoLocalizations.delegate,
         DefaultWidgetsLocalizations.delegate,
       ],
       locale: locale,
@@ -56,9 +57,10 @@ class _MyAppState extends ConsumerState<MyApp> {
                 child: AnnotatedRegion<SystemUiOverlayStyle>(
                   value: const SystemUiOverlayStyle(
                     statusBarColor: Colors.transparent,
+                    statusBarBrightness: Brightness.dark,
                   ),
                   child: GestureDetector(
-                    child: child,
+                    child: InternetCheckerWidget(widget, child: child!),
                     onTap: () {},
                   ),
                 ),

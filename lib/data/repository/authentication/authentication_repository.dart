@@ -73,7 +73,7 @@ class AuthenticationRepository implements IAuthenticationRepository {
         await iAuthenticationProvider.deleteStudent(studentId: studentId);
 
     if (response.statusCode == 200) {
-      return Success(response.data['detail']);
+      return Success(response.data['message']);
     } else {
       return Error(AuthException(message: response.data['detail']));
     }
@@ -117,6 +117,19 @@ class AuthenticationRepository implements IAuthenticationRepository {
       return Success(result);
     } else {
       return Error(AuthException(message: response.data['detail']));
+    }
+  }
+
+  @override
+  Future<Result<String, Exception>> register(
+      {required String email, required String password}) async {
+    final response = await iAuthenticationProvider.register(
+        email: email, password: password);
+
+    if (response.statusCode == 200) {
+      return const Success("Successfully registered");
+    } else {
+      return Error(Exception(response.data['detail']));
     }
   }
 }

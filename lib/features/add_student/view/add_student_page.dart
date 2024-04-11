@@ -47,7 +47,7 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
       String formattedDate = DateFormat('dd/MM/yyyy').format(dateOfBirth);
       if (widget.updateStudent.screenName == "Add Student") {
         ref.read(addStudentNotifierPod.notifier).addStudent(
-            filePath: images.first.path,
+            imageFilePath: images.first.path,
             studentName: studentName,
             studentAge: studentAge,
             dateOfBirth: formattedDate,
@@ -189,7 +189,7 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
               border: const OutlineInputBorder(),
               contentPadding: const EdgeInsets.all(18),
             ),
-            items: ['Male', 'Female', 'Other']
+            items: [l10n.male, l10n.female, l10n.other]
                 .map((gender) => DropdownMenuItem(
                       value: gender,
                       child: Text(gender),
@@ -219,6 +219,7 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
                       border: OutlineInputBorder(),
                       contentPadding: EdgeInsets.all(8)),
                   child: CountryCodePicker(
+                    boxDecoration: const BoxDecoration(),
                     onChanged: (value) {
                       field.didChange(value.name);
                     },
@@ -233,6 +234,9 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
           ].vStack(crossAlignment: CrossAxisAlignment.start).pOnly(bottom: 15),
           FormBuilderImagePicker(
             name: 'photo',
+            iconColor: Colors.white,
+            backgroundColor:
+                context.isDarkMode ? const Color.fromARGB(53, 0, 0, 0) : null,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
                 labelText: l10n.pick_photo, border: const OutlineInputBorder()),
@@ -258,8 +262,8 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
                           onSubmit();
                         },
                         child: widget.updateStudent.screenName == "Add Student"
-                            ? l10n.add_student.text.white.make()
-                            : l10n.update_student.text.white.make()),
+                            ? l10n.add_student.text.make()
+                            : l10n.update_student.text.make()),
                     LoadingAddStudentState() => ElevatedButton(
                         onPressed: () {
                           onSubmit();
@@ -272,12 +276,12 @@ class _AddStudentPageState extends ConsumerState<AddStudentPage> {
                         onPressed: () {
                           onSubmit();
                         },
-                        child: l10n.success.text.white.make()),
+                        child: l10n.success.text.make()),
                     AddStudentStateErrorState() => ElevatedButton(
                         onPressed: () {
                           onSubmit();
                         },
-                        child: l10n.error.text.white.make()),
+                        child: l10n.error.text.make()),
                   },
               error: (Object error, StackTrace stackTrace) =>
                   error.toString().text.make(),

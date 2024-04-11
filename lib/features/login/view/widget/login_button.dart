@@ -16,13 +16,13 @@ class LoginButton extends ConsumerWidget {
       data: (data) {
         return switch (data) {
           InitialLoginState() =>
-            CustomLoginElevatedButton(login: login, label: "Login"),
-          LoginLoadingState() =>
-            CustomLoginElevatedButton(login: login, label: "Loading"),
+            CustomRegisterElevatedButton(login: login, label: "Login"),
+          LoginLoadingState() => CustomRegisterElevatedButton(
+              login: login, label: "Loading", isLoading: true),
           LoginSuccessState() =>
-            CustomLoginElevatedButton(login: login, label: "Success"),
+            CustomRegisterElevatedButton(login: login, label: "Success"),
           LoginErrorState() =>
-            CustomLoginElevatedButton(login: login, label: "Error"),
+            CustomRegisterElevatedButton(login: login, label: "Error"),
         };
       },
       error: (error, stackTrace) => "error".text.make(),
