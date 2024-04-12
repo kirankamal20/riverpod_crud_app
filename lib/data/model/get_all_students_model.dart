@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
@@ -11,6 +12,7 @@ class Getallstudents {
   final String student_name;
   final String gender;
   final int owner_id;
+  final String studentId;
   Getallstudents({
     required this.student_age,
     required this.id,
@@ -20,6 +22,7 @@ class Getallstudents {
     required this.student_name,
     required this.gender,
     required this.owner_id,
+    required this.studentId,
   });
 
   Getallstudents copyWith({
@@ -31,6 +34,7 @@ class Getallstudents {
     String? student_name,
     String? gender,
     int? owner_id,
+    String? studentId,
   }) {
     return Getallstudents(
       student_age: student_age ?? this.student_age,
@@ -41,6 +45,7 @@ class Getallstudents {
       student_name: student_name ?? this.student_name,
       gender: gender ?? this.gender,
       owner_id: owner_id ?? this.owner_id,
+      studentId: studentId ?? this.studentId,
     );
   }
 
@@ -54,19 +59,21 @@ class Getallstudents {
       'student_name': student_name,
       'gender': gender,
       'owner_id': owner_id,
+      'studentId': studentId,
     };
   }
 
   factory Getallstudents.fromMap(Map<String, dynamic> map) {
     return Getallstudents(
       student_age: map['student_age'] as String,
-      id: map['id'].toInt() as int,
+      id: map['id'] as int,
       country: map['country'] as String,
       image: map['image'] as String,
       date_of_birth: map['date_of_birth'] as String,
       student_name: map['student_name'] as String,
       gender: map['gender'] as String,
-      owner_id: map['owner_id'].toInt() as int,
+      owner_id: map['owner_id'] as int,
+      studentId: '',
     );
   }
 
@@ -77,7 +84,7 @@ class Getallstudents {
 
   @override
   String toString() {
-    return 'Getallstudents(student_age: $student_age, id: $id, country: $country, image: $image, date_of_birth: $date_of_birth, student_name: $student_name, gender: $gender, owner_id: $owner_id)';
+    return 'Getallstudents(student_age: $student_age, id: $id, country: $country, image: $image, date_of_birth: $date_of_birth, student_name: $student_name, gender: $gender, owner_id: $owner_id, studentId: $studentId)';
   }
 
   @override
@@ -91,7 +98,8 @@ class Getallstudents {
         other.date_of_birth == date_of_birth &&
         other.student_name == student_name &&
         other.gender == gender &&
-        other.owner_id == owner_id;
+        other.owner_id == owner_id &&
+        other.studentId == studentId;
   }
 
   @override
@@ -103,6 +111,7 @@ class Getallstudents {
         date_of_birth.hashCode ^
         student_name.hashCode ^
         gender.hashCode ^
-        owner_id.hashCode;
+        owner_id.hashCode ^
+        studentId.hashCode;
   }
 }

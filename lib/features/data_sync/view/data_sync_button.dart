@@ -1,16 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:riverpod_crud_app/features/data_sync/controller/data_sync_check_pod.dart';
 import 'package:riverpod_crud_app/features/data_sync/controller/data_sync_notifier_pod.dart';
 import 'package:riverpod_crud_app/features/data_sync/view/ui_state/data_sync_state.dart';
 import 'package:riverpod_crud_app/main.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class DataSyncButton extends ConsumerWidget {
+class DataSyncButton extends ConsumerStatefulWidget {
   const DataSyncButton({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DataSyncButton> createState() => _DataSyncButtonState();
+}
+
+class _DataSyncButtonState extends ConsumerState<DataSyncButton> {
+  void syncData() {
+    ref.read(dataSyncNotifierPod.notifier).syncData(
+      onSuccess: () {
+        context.showToast(
+            textColor: Colors.white,
+            bgColor: Colors.black,
+            msg: "Successfully Data Synced");
+      },
+      onError: (errorMessage) {
+        context.showToast(
+          textColor: Colors.white,
+          bgColor: Colors.red,
+          msg: errorMessage,
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final isDataAvailable = ref.watch(offlineGetallStudentPod);
     return isDataAvailable.when(
       data: (data) => data.isNotEmpty
@@ -22,12 +46,15 @@ class DataSyncButton extends ConsumerWidget {
                     return switch (data) {
                       InitialDataSyncButtonState() => IconButton(
                           onPressed: () {
-                            ref.read(dataSyncNotifierPod.notifier).syncData();
+                            syncData();
                           },
                           icon: const Icon(Icons.sync)),
                       DataSyncButtonLoadingState() => IconButton(
                           onPressed: null,
-                          icon: const CircularProgressIndicator().h(20).w(20)),
+                          icon: LoadingAnimationWidget.threeArchedCircle(
+                            color: Colors.green,
+                            size: 25,
+                          ).h(25).w(25)),
                       DataSyncButtonSuccessState() => const IconButton(
                           onPressed: null,
                           icon: Icon(
@@ -36,17 +63,21 @@ class DataSyncButton extends ConsumerWidget {
                           )),
                       DataSyncButtonErrorState() => IconButton(
                           onPressed: () {
-                            ref.read(dataSyncNotifierPod.notifier).syncData();
+                            syncData();
                           },
-                          icon: const Icon(Icons.error))
+                          icon: const Icon(
+                            Icons.sync_problem_sharp,
+                            color: Colors.red,
+                          ))
                     };
                   },
                   error: (error, stackTrace) => IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.error,
-                        color: Colors.red,
-                      )),
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.sync_problem_sharp,
+                      color: Colors.red,
+                    ),
+                  ),
                   loading: () => IconButton(
                       onPressed: () {},
                       icon: const CircularProgressIndicator().h(20).w(20)),

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:riverpod_crud_app/data/model/get_all_students_model.dart';
 import 'package:riverpod_crud_app/data/model/update_student_details_arg.dart';
 import 'package:riverpod_crud_app/features/delete_btn/view/delete_btn_view.dart';
@@ -43,9 +44,11 @@ class _CustomCardState extends ConsumerState<CustomCard> with GlobalHelper {
                 ))
                 .withRounded(value: 20)
                 .make(),
-            placeholder: (context, url) => const Center(
-              child: CircularProgressIndicator(
-                strokeWidth: 2.0,
+            placeholder: (context, url) => Center(
+              child: LoadingAnimationWidget.twistingDots(
+                leftDotColor: const Color(0xFF1A1A3F),
+                rightDotColor: const Color(0xFFEA3799),
+                size: 30,
               ),
             ),
             errorWidget: (context, url, error) =>
@@ -57,6 +60,7 @@ class _CustomCardState extends ConsumerState<CustomCard> with GlobalHelper {
           top: 5,
           right: 5,
           child: DeleteBtnView(
+            getallstudents:widget. student,
             onError: (errorMessage) {
               showSnackBar(
                   errorMessage: errorMessage, backgroundColor: Colors.red);
@@ -66,7 +70,6 @@ class _CustomCardState extends ConsumerState<CustomCard> with GlobalHelper {
                   errorMessage: "Successfully Deleted",
                   backgroundColor: Colors.blue);
             },
-            studentId: widget.student.id,
           ),
         ),
         Positioned(

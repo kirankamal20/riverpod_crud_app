@@ -62,7 +62,7 @@ class AuthenticationRepository implements IAuthenticationRepository {
     if (response.statusCode == 200) {
       return const Success("success");
     } else {
-      return Error(AuthException(message: "error"));
+      return Error(AuthException(message: response.data.toString()));
     }
   }
 

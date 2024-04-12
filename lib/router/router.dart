@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 
 import 'package:riverpod_crud_app/data/service/db_service/i_db_service_service.dart';
 import 'package:riverpod_crud_app/router/guard/auth_guard.dart';
+import 'package:riverpod_crud_app/router/guard/splash_guard.dart';
 import 'package:riverpod_crud_app/router/router.gr.dart';
 
 @AutoRouterConfig()
@@ -14,15 +15,21 @@ class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
-          page: LoginRoute.page,
-          path: "/ ",
+          page: SplashRouteRoute.page,
+          path: "/",
           initial: true,
-          guards: [AuthGuard(iDbServiceService: iDbServiceService)],
+          guards: [SplashGuard(iDbServiceService: iDbServiceService)],
         ),
         AutoRoute(
+          page: LoginRoute.page,
+          path: "/LoginRoute ",
+          guards: [AuthGuard(iDbServiceService: iDbServiceService)],
+        ),
+        CustomRoute(
           page: HomeRoute.page,
           path: "/HomeRoute ",
-          // guards: [AuthGuard(iDbServiceService: iDbServiceService)],
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 400,
         ),
         AutoRoute(
           page: AddStudentRoute.page,

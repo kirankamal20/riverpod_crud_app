@@ -36,7 +36,8 @@ class HomePageAsyncNotifier
                 date_of_birth: e.dateOfBirth,
                 student_name: e.studentName,
                 gender: e.gender,
-                owner_id: 1),
+                owner_id: 1,
+                studentId: e.studentId),
           );
         }
         state = AsyncData(students);

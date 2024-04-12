@@ -15,7 +15,6 @@ dependencies:
   country_code_picker: ^3.0.0
   cupertino_icons: ^1.0.6
   dio: ^5.4.0
-  
   dio_smart_retry: ^6.0.0
   duration: ^3.0.13
   easy_debounce: ^2.0.3
@@ -26,7 +25,7 @@ dependencies:
   flutter_form_builder: ^9.2.0
   flutter_localizations:
     sdk: flutter
-  flutter_riverpod:  
+  flutter_riverpod: null
   form_builder_image_picker: ^4.0.0
   form_builder_phone_field: ^2.0.1
   form_builder_validators: ^9.1.0
@@ -35,6 +34,8 @@ dependencies:
   hydrated_state_notifier: ^1.0.0
   hydrated_state_notifier_hive: ^1.0.0
   internet_connection_checker: ^1.0.0+1
+  loading_animation_widget: ^1.2.1
+  lottie: ^3.1.0
   multiple_result: ^5.1.0
   path_provider: ^2.1.2
   pinput: ^4.0.0
@@ -56,6 +57,6 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
-    - assets/anim/nointernet.riv
+    - assets/anim/ 
   generate: true
   uses-material-design: true

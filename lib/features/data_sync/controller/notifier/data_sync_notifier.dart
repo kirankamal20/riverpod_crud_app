@@ -14,7 +14,9 @@ class DataSyncAsyncNotifier
     return InitialDataSyncButtonState();
   }
 
-  void syncData() async {
+  void syncData(
+      {required Function onSuccess,
+      required Function(String errorMessage) onError}) async {
     state = AsyncData(DataSyncButtonLoadingState());
     final getAllStudents = await ref.watch(offlineGetallStudentPod.future);
 
@@ -42,9 +44,11 @@ class DataSyncAsyncNotifier
             .deleteStudent(studentId: element.studentId);
         if (successfulUploads == totalStudents) {
           state = AsyncData(DataSyncButtonSuccessState());
+          onSuccess();
           ref.invalidate(getallStudentsNotifier);
         }
       }, (error) {
+        onError(error.message);
         state = AsyncData(DataSyncButtonErrorState(error.message));
       });
     }
